@@ -4,17 +4,21 @@ import pygame
 # Particle One
 x1 = 125
 velocity1 = -50
-radius1 = 10
+r1 = 10
+m1 = 1
+colour1 = (0, 0, 250)
 
 
 # Particle Two
 x2 = 375
-velocity2 = 50
-radius2 = 10
+velocity2 = -50
+r2 = 31.6
+m2 = 10
+colour2 = (255,255, 255)
 
 # Simulation parameters
 space_size = 500
-colour = (255,255, 250)
+
 rate = 60 # fps
 dt = 1/rate # times step between frames
 
@@ -38,18 +42,23 @@ while running:
     screen.fill((0, 0, 0))
 
     # Draw a solid white circle in the center
-    pygame.draw.circle(screen, colour, (x1, 250),radius1)
+    pygame.draw.circle(screen, colour1, (x1, 250),r1)
 
     # Draw a solid white circle in the center
-    pygame.draw.circle(screen, colour, (x2, 250), radius2)
+    pygame.draw.circle(screen, colour2, (x2, 250), r2)
 
+    # Particle to particle collisions
+    if abs(x2 - x1) < r1+r2:
+        ux1, ux2 = velocity1, velocity2
+        velocity1 = ux1 * (m1 - m2)/(m1 + m2) + 2 * ux2 * m2/(m1+m2)
+        velocity2 = 2 * ux1 * m1/(m1+m2) + ux2 * (m2 - m1)/(m1+m2)
 
     # Wall collisions particle one
-    if x1-radius1 <= 0 or x1+radius1 >= space_size:
+    if x1-r1 <= 0 or x1+r1 >= space_size:
         velocity1 = -velocity1
 
     # Wall collisions particle two
-    if x2-radius2 <= 0 or x2+radius2 >= space_size:
+    if x2-r2 <= 0 or x2+r2 >= space_size:
         velocity2 = -velocity2
 
     # Flip the display
