@@ -48,44 +48,30 @@ class Fluid():
             if abs(math.sqrt((self.particle2.pos[0] - self.particle1.pos[0]) ** 2 + (self.particle2.pos[1] - self.particle1.pos[1]) ** 2)) < self.particle1.r + self.particle2.r:
                 v1, v2 = self.particle1.v, self.particle2.v
 
-                velocity1 = v1 - (2 * self.particle2.m) / (self.particle1.m + self.particle2.m) * (np.dot((v1 - v2), (self.particle1.pos[0] - self.particle2.pos[0]))) / ((math.sqrt(abs(self.particle1.pos[0] - self.particle2.pos[0]) ** 2)) ** 2) * (self.particle1.pos[0] - self.particle2.pos[0])
-                velocity2 = v2 - (2 * self.particle1.m) / (self.particle1.m + self.particle2.m) * (np.dot((v2 - v1), (self.particle2.pos[0] - self.particle1.pos[0]))) / ((math.sqrt(abs(self.particle2.pos[0] - self.particle1.pos[0]) ** 2)) ** 2) * (self.particle2.pos[0] - self.particle1.pos[0])
+                self.particle1.v = v1 - (2 * self.particle2.m) / (self.particle1.m + self.particle2.m) * (np.dot((v1 - v2), (self.particle1.pos[0] - self.particle2.pos[0]))) / ((math.sqrt(abs(self.particle1.pos[0] - self.particle2.pos[0]) ** 2)) ** 2) * (self.particle1.pos[0] - self.particle2.pos[0])
+                self.particle2.v = v2 - (2 * self.particle1.m) / (self.particle1.m + self.particle2.m) * (np.dot((v2 - v1), (self.particle2.pos[0] - self.particle1.pos[0]))) / ((math.sqrt(abs(self.particle2.pos[0] - self.particle1.pos[0]) ** 2)) ** 2) * (self.particle2.pos[0] - self.particle1.pos[0])
             # Wall collisions particle one
 
 
-            '''
-            This code is to be put in particles.py as it does not reference any other particles.
-            
-            if pos_1[0] - r1 <= 0 or pos_1[0] + r1 >= space_size:
-                velocity1 = -velocity1
+            self.particle1.x_wallCollision()
+            self.particle1.y_wallCollision()
 
-            if pos_1[1] - r1 <= 0 or pos_1[1] + r1 >= space_size:
-                gravity1 = -gravity1
-
-            if pos_2[0] - r2 <= 0 or pos_2[0] + r2 >= space_size:
-                velocity2 = -velocity2
-
-            if pos_2[1] - r2 <= 0 or pos_2[1] + r2 >= space_size:
-                gravity2 = -gravity2
-                '''
+            self.particle2.x_wallCollision()
+            self.particle2.y_wallCollision()
 
             # Flip the display
             pygame.display.flip()
 
-'''
-this code is also to be put in particles.py as it does not reference any other particles.
 
-            pos_1[1] = pos_1[1] + gravity1 * dt
 
-            pos_1[0] = pos_1[0] + velocity1 * dt
+            self.particle1.xmovement()
+            self.particle2.xmovement()
+            self.particle1.ymovement()
+            self.particle2.ymovement()
 
-            pos_2[1] = pos_2[1] + gravity2 * dt
+            #print(self.particle1.pos[0], self.particle1.pos[1], self.particle2.pos[0], self.particle2.pos[1])
 
-            pos_2[0] = pos_2[0] + velocity2 * dt
 
-            print(pos_1[0], pos_1[1], pos_2[0], pos_2[1])
-
-'''
             # limit frame rate to desired number of frames per second.
 
             self.clock.tick(self.rate)
@@ -93,5 +79,7 @@ this code is also to be put in particles.py as it does not reference any other p
         # Done! Time to quit.
         pygame.quit()
 
+
+Fluid().run()
 
 
