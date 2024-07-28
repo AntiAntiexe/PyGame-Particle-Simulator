@@ -1,7 +1,7 @@
 import pygame
 import numpy as np
 import math
-from model import Model
+from particles import Model
 
 
 class Fluid():
@@ -54,7 +54,7 @@ class Fluid():
 
 
             '''
-            This code is to be put in model.py as it does not reference any other particles.
+            This code is to be put in particles.py as it does not reference any other particles.
             
             if pos_1[0] - r1 <= 0 or pos_1[0] + r1 >= space_size:
                 velocity1 = -velocity1
@@ -73,7 +73,7 @@ class Fluid():
             pygame.display.flip()
 
 '''
-this code is also to be put in model.py as it does not reference any other particles.
+this code is also to be put in particles.py as it does not reference any other particles.
 
             pos_1[1] = pos_1[1] + gravity1 * dt
 
