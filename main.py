@@ -48,7 +48,7 @@ while running:
     pygame.draw.circle(screen, colour2, (x2, 250), r2)
 
     # Particle to particle collisions
-    if abs(x2 - x1) < r1+r2:
+    if abs(x2 - x1) < r1+r2 or abs(y2 - y1) <r1+r2:
         ux1, ux2 = velocity1, velocity2
         velocity1 = ux1 * (m1 - m2)/(m1 + m2) + 2 * ux2 * m2/(m1+m2)
         velocity2 = 2 * ux1 * m1/(m1+m2) + ux2 * (m2 - m1)/(m1+m2)
