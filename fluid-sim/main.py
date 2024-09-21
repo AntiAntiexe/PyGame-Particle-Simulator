@@ -63,7 +63,7 @@ class Fluid():
             pygame.display.flip()
 
 
-
+            # Define moevement
             self.particle1.xmovement()
             self.particle2.xmovement()
             self.particle1.ymovement()
