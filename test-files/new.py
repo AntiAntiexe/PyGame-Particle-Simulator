@@ -66,11 +66,25 @@ pos_1 = np.array([125, 125], dtype=float)
 
 x = pos_1[1] + 50 * (1/rate)'''
 
-pos_1[1] = pos_1[1] + velocity1 * dt
+'''pos_1[1] = pos_1[1] + velocity1 * dt
 
 
 #print(x)
-print(pos_1[1])
+print(pos_1[1])'''
+
+if abs(math.sqrt((pos_2[0] - pos_1[0]) ** 2 + (pos_2[1] - pos_1[1]) ** 2)) < r1 + r2:
+        v1, v2 = velocity1, velocity2
+
+        velocity1 = v1 - (2 * m2) / (m1 + m2) * (np.dot((v1 - v2), (pos_1[0] - pos_2[0]))) / (
+                        ((math.sqrt(pos_2[0] ** 2)) ** 2) + ((math.sqrt(pos_1[0] ** 2)) ** 2) - 2 * np.dot(pos_2[0],
+                                                                                                           pos_1[
+                                                                                                                   0])) * (
+                                    pos_1[0] - pos_2[0])
+        velocity1 = v1 - (2 * m2) / (m1 + m2) * (np.dot((v1 - v2), (pos_1[0] - pos_2[0]))) / (
+                        ((math.sqrt(pos_1[0] ** 2)) ** 2) + ((math.sqrt(pos_2[0] ** 2)) ** 2) - 2 * np.dot(pos_2[0],
+                                                                                                           pos_1[
+                                                                                                                   0])) * (
+                                    pos_1[0] - pos_2[0])
 
 
 

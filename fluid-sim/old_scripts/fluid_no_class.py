@@ -12,7 +12,7 @@ dt = 1/rate # times step between frames
 # Particle One
 pos_1 = np.array([125, 125], dtype=np.float64)
 #collisionDamp = 1
-velocity1 = 150
+velocity1 = 300
 gravity1 = 50
 r1 = 10
 m1 = 1
@@ -60,7 +60,7 @@ while running:
 
         velocity1 = v1 - (2 * m2)/(m1 + m2) * (np.dot((v1 - v2), (pos_1[0] - pos_2[0])))/((math.sqrt(abs(pos_1[0]- pos_2[0])**2))**2) * (pos_1[0] - pos_2[0])
         velocity2 = v2 - (2 * m1) / (m1 + m2) * (np.dot((v2 - v1), (pos_2[0] - pos_1[0]))) / ((math.sqrt(abs(pos_2[0] - pos_1[0]) ** 2)) ** 2) * (pos_2[0] - pos_1[0])
-    # Wall collision test: 1
+    # Wall collisions particle one
     if pos_1[0]-r1 <= 0 or pos_1[0]+r1 >= space_size:
         velocity1 = -velocity1
 
