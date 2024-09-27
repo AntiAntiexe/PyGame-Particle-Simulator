@@ -17,6 +17,8 @@ m2 = 1000000
 colour2 = (255,255, 255)
 count = 0
 
+c = 1
+
 # Simulation parameters
 space_size = 500
 
@@ -52,9 +54,11 @@ while running:
     # Particle to particle collisions
     if abs(x2 - x1) < r1+r2:
         ux1, ux2 = velocity1, velocity2
-        velocity1 = ux1 * (m1 - m2)/(m1 + m2) + 2 * ux2 * m2/(m1+m2)
-        velocity2 = 2 * ux1 * m1/(m1+m2) + ux2 * (m2 - m1)/(m1+m2)
+        #velocity1 = ux1 * (m1 - m2)/(m1 + m2) + 2 * ux2 * m2/(m1+m2)
+        #velocity2 = 2 * ux1 * m1/(m1+m2) + ux2 * (m2 - m1)/(m1+m2)
 
+        velocity1 = ((c*m2)*(ux2 - ux1) + m1*ux1 + m2*ux2)/m1+m2
+        velocity2 = ((c * m2) * (ux1 - ux2) + m1 * ux1 + m2 * ux2) / m1 + m2
         count = count+1
         print(count)
 
