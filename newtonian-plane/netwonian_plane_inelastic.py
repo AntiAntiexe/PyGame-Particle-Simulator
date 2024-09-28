@@ -13,11 +13,11 @@ colour1 = (0, 0, 250)
 x2 = 375
 velocity2 = -50
 r2 = 31.6
-m2 = 1000000
+m2 = 100
 colour2 = (255,255, 255)
 count = 0
 
-c = 1
+c = 0
 
 # Simulation parameters
 space_size = 500
