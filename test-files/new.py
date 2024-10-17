@@ -1,90 +1,83 @@
-import numpy as np
+import pygame
+y = 500
+x = 200
+r = 10
+vel = 5
 
-'''def encryptionFunction():
-    # Variables
-    ciphertext = []
-    ascii_values = []
+isJump = False
+jumpCount = 10
 
-    # Prompt to enter plaintext to be encrypted
-    plaintext = input('Please enter text to be encrypted: ')
-
-    # Each letter in the message is converted to ASCII and
-    # appended to a list
-    for character in plaintext:
-        ascii_values.append(ord(character))
-
-    # Each ASCII character is multiplied by 3
-    for element in ascii_values:
-        ciphertext.append(element * 3)
-
-    # Ciphertext is returned
-    return ciphertext
-
-
-while True:
-    print(encryptionFunction())
-
-'''
-''''
-def decryptionFunction():
-    ciphertext = input('Please enter ciphertext to be decrypted: ')
-    ascii_values = []
-    deciphertext = []
-
-
-    for i in ciphertext:
-        
-    for i in ciphertext:
-        deciphertext.append(i/3)
-        print(deciphertext)
-
-
-while True:
-    print(decryptionFunction())
-
-
-
-
-
-phi =
-v_1x = v_1* numpy.cos(theta_1-)'''
 rate = 60 # fps
 dt = 1/rate # times step between frames
-velocity1 = 150
-gravity1 = 50
 
+pygame.init()
 
-pos_1 = np.array([125, 125], dtype=float)
+# Set up the drawing window
+screen = pygame.display.set_mode((800, 600))
 
-#pos_1[1] = np.add(pos_1[1], (gravity1 * dt))
+clock = pygame.time.Clock()
 
-#pos_1[1] = pos_1[1]*dt + gravity1
+# Run until the user asks to quit
+running = True
+while running:
 
-#pos_1[1] = float(pos_1[1]) + 50 * (1/rate)
+    # Did the user click the window close button?
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-'''pos_1[1] = float(pos_1[1])
+    screen.fill((0, 0, 0))
 
-x = pos_1[1] + 50 * (1/rate)'''
-
-'''pos_1[1] = pos_1[1] + velocity1 * dt
-
-
-#print(x)
-print(pos_1[1])'''
-
-if abs(math.sqrt((pos_2[0] - pos_1[0]) ** 2 + (pos_2[1] - pos_1[1]) ** 2)) < r1 + r2:
-        v1, v2 = velocity1, velocity2
-
-        velocity1 = v1 - (2 * m2) / (m1 + m2) * (np.dot((v1 - v2), (pos_1[0] - pos_2[0]))) / (
-                        ((math.sqrt(pos_2[0] ** 2)) ** 2) + ((math.sqrt(pos_1[0] ** 2)) ** 2) - 2 * np.dot(pos_2[0],
-                                                                                                           pos_1[
-                                                                                                                   0])) * (
-                                    pos_1[0] - pos_2[0])
-        velocity1 = v1 - (2 * m2) / (m1 + m2) * (np.dot((v1 - v2), (pos_1[0] - pos_2[0]))) / (
-                        ((math.sqrt(pos_1[0] ** 2)) ** 2) + ((math.sqrt(pos_2[0] ** 2)) ** 2) - 2 * np.dot(pos_2[0],
-                                                                                                           pos_1[
-                                                                                                                   0])) * (
-                                    pos_1[0] - pos_2[0])
+    pygame.draw.circle(screen, (0, 255, 0), (x, y), r, 0)
 
 
 
+    if pygame.key.get_pressed()[pygame.K_s]:
+        y = y + 10
+    elif pygame.key.get_pressed()[pygame.K_a]:
+        x = x - 10
+    elif pygame.key.get_pressed()[pygame.K_d]:
+        x = x + 10
+    elif pygame.key.get_pressed()[pygame.K_SPACE]:
+        isJump = True
+
+    if not (isJump):  # Checks is user is not jumping
+        '''if pygame.key.get_pressed()[pygame.K_w] and y > vel:  # Same principles apply for the y coordinate
+            y -= vel'''
+
+        if pygame.key.get_pressed()[pygame.K_s] and y  < 500 - r - vel:
+            y += vel
+
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            isJump = True
+    else:
+        if jumpCount >= -10:
+            y -= (jumpCount * abs(jumpCount)) * 0.5
+            jumpCount -= 1
+        else:  # This will execute if our jump is finished
+            jumpCount = 10
+            isJump = False
+        # This is what will happen if we are jumping
+
+    if x-r <=0:
+        x = x+10
+    elif x+r >= 800:
+        x = x-10
+    elif y-r <=0:
+        y = y+10
+    elif y+r >= 600:
+        y = y-10
+
+
+
+
+
+    # Flip the display
+    pygame.display.flip()
+
+    # limit frame rate to desired number of frames per second.
+
+    clock.tick(rate)
+
+# Done! Time to quit.
+pygame.quit()
